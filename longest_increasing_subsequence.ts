@@ -52,6 +52,7 @@ function lengthOfLIS_effective_array_logic(nums: number[]): number {
     let left = 0;
     let right = effectiveArray.length - 1;
     while (left <= right) {
+      // We should have to exit the loop when left and right crosses that's why <=
       let mid: number = Math.floor(left + (right - left) / 2);
       if (effectiveArray[mid] == value) return mid;
       else if (effectiveArray[mid] > value) right = mid - 1;
