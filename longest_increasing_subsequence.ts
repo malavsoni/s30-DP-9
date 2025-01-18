@@ -45,14 +45,14 @@ function lengthOfLIS_tabulation(nums: number[]): number {
 
 // O(n)
 function lengthOfLIS_effective_array_logic(nums: number[]): number {
-  let effectiveArray: number[] = Array.from({ length: nums.length });
-  effectiveArray[0] = nums[0];
-  let len = 1;
+  let effectiveArray: number[] = [];
+  effectiveArray.push(nums[0]);
+
   function search(value: number): number {
     let left = 0;
-    let right = len - 1;
-    while (left < right) {
-      let mid = left + (right - left / 2);
+    let right = effectiveArray.length - 1;
+    while (left <= right) {
+      let mid: number = Math.floor(left + (right - left) / 2);
       if (effectiveArray[mid] == value) return mid;
       else if (effectiveArray[mid] > value) right = mid - 1;
       else left = mid + 1;
@@ -61,29 +61,28 @@ function lengthOfLIS_effective_array_logic(nums: number[]): number {
   }
 
   for (let i = 1; i < nums.length; i++) {
-    if (nums[i] > effectiveArray[len - 1]) {
-      effectiveArray[len] = nums[i];
-      len++;
+    let len = effectiveArray.length - 1;
+    if (nums[i] > effectiveArray[len]) {
+      effectiveArray.push(nums[i]);
     } else {
       let idx = search(nums[i]);
       effectiveArray[idx] = nums[i];
     }
   }
-
-  console.log(effectiveArray);
-
-  return len;
+  return effectiveArray.length;
 }
+
 describe("300. Longest Increasing Subsequence", () => {
   it("Happy Path - 01", () => {
     expect(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18])).toEqual(4);
+    expect(lengthOfLIS([3, 5, 6, 2, 5, 4, 19, 5, 6, 7, 12])).toEqual(6);
     expect(lengthOfLIS_tabulation([10, 9, 2, 5, 3, 7, 101, 18])).toEqual(4);
     expect(
       lengthOfLIS_effective_array_logic([10, 9, 2, 5, 3, 7, 101, 18])
     ).toEqual(4);
   });
 
-  it("Happy Path - 01", () => {
+  it("Happy Path - 02", () => {
     expect(lengthOfLIS([3, 5, 6, 2, 5, 4, 19, 5, 6, 7, 12])).toEqual(6);
     expect(lengthOfLIS_tabulation([3, 5, 6, 2, 5, 4, 19, 5, 6, 7, 12])).toEqual(
       6
@@ -91,5 +90,13 @@ describe("300. Longest Increasing Subsequence", () => {
     expect(
       lengthOfLIS_effective_array_logic([3, 5, 6, 2, 5, 4, 19, 5, 6, 7, 12])
     ).toEqual(6);
+  });
+
+  it("Happy Path - 03", () => {
+    expect(lengthOfLIS([3, 5, 6, 2, 5, 4, 19, 5, 6, 7, 12])).toEqual(6);
+    expect(lengthOfLIS_tabulation([3, 5, 6, 2, 5, 4, 19, 5, 6, 7, 12])).toEqual(
+      6
+    );
+    expect(lengthOfLIS_effective_array_logic([10, 9, 2, 5, 3, 4])).toEqual(3);
   });
 });
