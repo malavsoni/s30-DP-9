@@ -1,6 +1,5 @@
 // Time Complexity : o(nlogn)
 // Space Complexity : o(n)
-// Did this code successfully run on Leetcode : true
 function maxEnvelopes(envelopes: number[][]): number {
   envelopes = envelopes.sort((lhs, rhs) => {
     if (lhs[0] == rhs[0]) return rhs[1] - lhs[1]; // If Width are same the sort those object by height in decending order
