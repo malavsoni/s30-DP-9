@@ -36,7 +36,7 @@ function numberOfWeakCharacters_efficient(properties: number[][]): number {
   let maxDefence = Number.MIN_SAFE_INTEGER;
   // Interesting idea
   // check the objects from end to start
-  // which means last element will be the highest size and 1st element will be the smallest
+  // which means last element will be the highest attack and 1st element will be the smallest attack
   // [[3,6], [3,8], [4,10], [5,11]]
   // Also, maintaining max defence work because when we go from end to start
   //    we will always be visiting the smaller element compare to previously visited.
